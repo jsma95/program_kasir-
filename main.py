@@ -5,6 +5,7 @@
 from cart import Cart
 from inventory import Inventory
 from transaction_manager import TransactionManager
+from product import ProductSearch
 
 def menu():
     inventory = Inventory()
@@ -16,7 +17,8 @@ def menu():
         print("2. Lihat Barang Tersedia")
         print("3. Belanja Pelanggan")
         print("4. Lihat Semua Transaksi")
-        print("5. Keluar")
+        print("5. Pencarian Produk")
+        print("6. Keluar")
 
         choice = input("Pilih menu (1-5): ")
 
@@ -60,6 +62,15 @@ def menu():
             transaction_manager.show_transactions()
 
         elif choice == "5":
+            keyword = input("Nama barang: ")
+            results = ProductSearch.search(inventory.products, keyword)
+            if results:
+                print("\n=== Hasil Pencarian ===")
+                for p in results:
+                    print(f"- {p.name}: Rp {p.price:.2f}")
+            else:
+                print("⚠️ Tidak ada barang yang cocok.")
+        elif choice == "6":
             print("Terima kasih telah menggunakan sistem kasir.")
             break
 
